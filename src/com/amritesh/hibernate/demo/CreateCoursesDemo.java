@@ -4,33 +4,43 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.amritesh.hibernate.entity.demo.Course;
 import com.amritesh.hibernate.entity.demo.Instructor;
 import com.amritesh.hibernate.entity.demo.InstructorDetail;
 
-public class DeleteDemo {
+public class CreateCoursesDemo {
 
 	public static void main(String[] args) {
+		
 		SessionFactory sessionFactory = new Configuration()
 										.configure("hibernate.cfg.xml")
 										.addAnnotatedClass(Instructor.class)
 										.addAnnotatedClass(InstructorDetail.class)
+										.addAnnotatedClass(Course.class)
 										.buildSessionFactory();
-		
 		Session session = null;
-		
 		try {
 			session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			Instructor instructor = session.get(Instructor.class, 3);
-			// Will delete associated objects to due to CascaseType.ALL
-			if (instructor != null) 
-				session.delete(instructor);
+			Instructor tempInstructor = session.get(Instructor.class, 1);
+			
+			Course tempCourse1 = new Course("Air Guitar");
+			Course tempCourse2 = new Course("Pin Ball Masterclass");
+			
+			tempInstructor.addCourse(tempCourse1);
+			tempInstructor.addCourse(tempCourse2);
+			
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+			
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
+			sessionFactory.close();
 		}
-		session.close();
-		sessionFactory.close();
+		
 	}
-
+	
 }
