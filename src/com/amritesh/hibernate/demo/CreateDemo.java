@@ -8,7 +8,7 @@ import com.amritesh.hibernate.entity.demo.Course;
 import com.amritesh.hibernate.entity.demo.Instructor;
 import com.amritesh.hibernate.entity.demo.InstructorDetail;
 
-public class CreateCoursesDemo {
+public class CreateDemo {
 
 	public static void main(String[] args) {
 		
@@ -22,18 +22,13 @@ public class CreateCoursesDemo {
 		try {
 			session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
-			Instructor tempInstructor = session.get(Instructor.class, 2);
-			
-			Course tempCourse1 = new Course("ABC");
-			Course tempCourse2 = new Course("DEF");
-			
-			tempInstructor.addCourse(tempCourse1);
-			tempInstructor.addCourse(tempCourse2);
-			
-			session.save(tempCourse1);
-			session.save(tempCourse2);
-			
+			Instructor instructor = new Instructor("Susan", "Public", "susan.public@gmail.com");
+			InstructorDetail instructorDetail = new InstructorDetail("https://ytb.com/susan", "Video Game");
+			instructor.setInstructorDetail(instructorDetail);
+			session.save(instructorDetail);
+			session.save(instructor);
 			session.getTransaction().commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

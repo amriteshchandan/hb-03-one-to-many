@@ -8,7 +8,7 @@ import com.amritesh.hibernate.entity.demo.Course;
 import com.amritesh.hibernate.entity.demo.Instructor;
 import com.amritesh.hibernate.entity.demo.InstructorDetail;
 
-public class CreateDriverProgram {
+public class DeleteCoursesDemo {
 
 	public static void main(String[] args) {
 		
@@ -21,13 +21,10 @@ public class CreateDriverProgram {
 		Session session = null;
 		try {
 			session = sessionFactory.getCurrentSession();
-			Instructor instructor = new Instructor("Susan", "Public", "susan.public@gmail.com");
-			InstructorDetail instructorDetail = new InstructorDetail("https://ytb.com/susan", "Video Game");
-			instructor.setInstructorDetail(instructorDetail);
 			session.beginTransaction();
-			session.save(instructor);
+			Course course = session.get(Course.class, 1);
+			session.delete(course);
 			session.getTransaction().commit();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

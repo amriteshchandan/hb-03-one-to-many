@@ -25,7 +25,12 @@ public class InstructorDetail {
 	private String hobby;
 	
 	@OneToOne(mappedBy = "instructorDetail", 
-			cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH})
+			cascade = {
+					CascadeType.DETACH,
+					CascadeType.MERGE,
+					CascadeType.PERSIST,
+					CascadeType.REFRESH
+				})
 	private Instructor instructor;
 	
 	public InstructorDetail() {}
@@ -64,7 +69,6 @@ public class InstructorDetail {
 	}
 
 	public void setInstructor(Instructor instructor) {
-		System.out.println("Set Instructor Called");
 		this.instructor = instructor;
 	}
 
