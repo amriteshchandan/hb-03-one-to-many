@@ -5,7 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +19,7 @@ public class Course {
 	@Column(name = "title")
 	private String title;
 	
-	@OneToMany(cascade = {
+	@ManyToOne(cascade = {
 			CascadeType.DETACH,
 			CascadeType.MERGE,
 			CascadeType.PERSIST,
